@@ -1920,6 +1920,7 @@ rpmalloc_finalize(void) {
 	//Free all thread caches
 	for (size_t list_idx = 0; list_idx < HEAP_ARRAY_SIZE; ++list_idx) {
 		heap_t* heap = (heap_t*)atomic_load_ptr(&_memory_heaps[list_idx]);
+		atomic_store_ptr(&_memory_heaps[list_idx], 0);
 		while (heap) {
 			if (heap->spans_reserved) {
 				span_t* span = _memory_map_spans(heap, heap->spans_reserved);
@@ -1978,6 +1979,9 @@ rpmalloc_finalize(void) {
 #endif
 
 	atomic_store_ptr(&_memory_orphan_heaps, 0);
+	atomic_store32(&_memory_heap_id, 0);
+	atomic_store32(&_memory_orphan_counter, 0);
+
 	atomic_thread_fence_release();
 
 #if (defined(__APPLE__) || defined(__HAIKU__)) && ENABLE_PRELOAD
