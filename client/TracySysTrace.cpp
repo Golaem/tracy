@@ -772,10 +772,14 @@ bool SysTraceStart( int64_t& samplingPeriod )
     return false;
 #endif
 
+#ifdef TRACY_VERBOSE
     int paranoidLevel = 2;
+#endif
     const auto paranoidLevelStr = ReadFile( "/proc/sys/kernel/perf_event_paranoid" );
     if( !paranoidLevelStr ) return false;
+#ifdef TRACY_VERBOSE
     paranoidLevel = atoi( paranoidLevelStr );
+#endif
     TracyDebug( "perf_event_paranoid: %i\n", paranoidLevel );
 
     int switchId = -1, wakeupId = -1;
