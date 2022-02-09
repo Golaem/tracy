@@ -136,7 +136,7 @@ private:
 
   // Padding to avoid adjacent allocations to share cache line with
   // writeIdxCache_
-  char padding_[kCacheLineSize - sizeof(writeIdxCache_)];
+  char padding_[kCacheLineSize - sizeof(size_t)];
 };
 } // namespace rigtorp
 
