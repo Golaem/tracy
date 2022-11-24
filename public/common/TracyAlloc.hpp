@@ -7,7 +7,7 @@
 #  include "TracyApi.h"
 #  include "TracyForceInline.hpp"
 #  include "../client/tracy_rpmalloc.hpp"
-#  define TRACY_USE_RPMALLOC
+//#  define TRACY_USE_RPMALLOC
 #endif
 
 namespace tracy
