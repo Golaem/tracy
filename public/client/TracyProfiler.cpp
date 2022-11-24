@@ -1411,11 +1411,11 @@ void Profiler::SpawnWorkerThreads()
 #ifdef TRACY_HAS_CALLSTACK
     s_symbolThread = (Thread*)tracy_malloc( sizeof( Thread ) );
     new(s_symbolThread) Thread( LaunchSymbolWorker, this );
+    s_symbolThreadId = GetThreadId( s_symbolThread->Handle() );
 #endif
 
 #if defined _WIN32 && !defined TRACY_UWP && !defined TRACY_NO_CRASH_HANDLER
     s_profilerThreadId = GetThreadId( s_thread->Handle() );
-    s_symbolThreadId = GetThreadId( s_symbolThread->Handle() );
     m_exceptionHandler = AddVectoredExceptionHandler( 1, CrashFilter );
 #endif
 
